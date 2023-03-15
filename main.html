@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body> 
+      <div class="quiz" id="quiz">
+        <button id="button" value="1"> click me</button>
+          <div class="first-block">
+            <div class="questions">Які емоції ви відчуваєте до людини</div>
+            <div class="answers">
+              <label class="answerunit">любов
+                <input id="first" 
+                class="radio-input"
+                type="radio" 
+                value="1"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">дружбу
+                <input id="second" 
+                class="radio-input" 
+                type="radio" 
+                value="2"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">родинні
+                <input id="third" 
+                class="radio-input"
+                type="radio" 
+                value="3"/>
+                <span class="checkmark"></span>
+              </label>
+              </div>
+          </div>
+          <div class="second-love-block" id="love" style="display: none;">
+            <label class="answerunit">1
+                <input id="first" 
+                class="checkbox-input" 
+                type="checkbox" 
+                value="1"/>
+                <span class="checkmark"></span>
+              </label>
+          </div>
+          <div class="second-friendship-block" id="friendship" style="display: none;">
+            <label class="answerunit">1
+                <input id="first" 
+                class="checkbox-input" 
+                type="checkbox" 
+                value="1"/>
+                <span class="checkmark"></span>
+              </label>
+          </div>
+          <div class="second-family-block" id="family" style="display: none;">
+            <label class="answerunit">1
+                <input id="first" 
+                class="checkbox-input" 
+                type="checkbox" 
+                value="1"/>
+                <span class="checkmark"></span>
+              </label>
+          </div>
+          <div class="loader-block"></div>
+          <div class="result-block"></div>
+          
+      </div>
+      <script>
+        const radioButtons = document.getElementsByClassName("radio-input"); 
+        const firstBlock = document.getElementsByClassName("first-block");
+        const secondBlock = null;
+        const loaderBlock = document.getElementsByClassName("loader-block");
+        const resultBlock = document.getElementsByClassName("result-block");
+        let result = [];
+        const btn = document.getElementById("button");
+        
+
+        const onButtonClick = (e) => {
+        const selectedOption = e.target.value;
+        result.push(selectedOption);  
+
+        if (selectedOption === "1") {
+            secondBlock = document.getElementsByClassName("second-love-block")
+        } if (selectedOption === "2") {
+            secondBlock = document.getElementsByClassName("second-friendship-block")
+        } if (selectedOption === "3") {
+            secondBlock = document.getElementsByClassName("second-family-block")
+        } else {
+            alert("error occured");
+        };
+
+        secondBlock.style.display = "block";
+        console.log("hi");
+    };
+
+    for (const radioButtons) {
+        radioButtons.addEventListener("change", onButtonClick);
+    }
+
+      </script>
+  </body>
+</html>
