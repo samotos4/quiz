@@ -9,7 +9,7 @@
   </head>
   <body> 
       <div class="quiz" id="quiz">
-        <button id="button" value="1"> click me</button>
+        <button id="resultBtn" value="1"> click me</button>
           <div class="first-block">
             <div class="questions">Які емоції ви відчуваєте до людини</div>
             <div class="answers">
@@ -46,7 +46,7 @@
               </label>
           </div>
           <div class="second-friendship-block" id="friendship" style="display: none;">
-            <label class="answerunit">1
+            <label class="answerunit">2
                 <input id="first" 
                 class="checkbox-input" 
                 type="checkbox" 
@@ -55,7 +55,7 @@
               </label>
           </div>
           <div class="second-family-block" id="family" style="display: none;">
-            <label class="answerunit">1
+            <label class="answerunit">3
                 <input id="first" 
                 class="checkbox-input" 
                 type="checkbox" 
@@ -64,41 +64,56 @@
               </label>
           </div>
           <div class="loader-block"></div>
-          <div class="result-block"></div>
           
+          <div class="result-block">
+            <div>blabalbal <b class="result-text"></b></div>
+          </div>
       </div>
       <script>
-        const radioButtons = document.getElementsByClassName("radio-input"); 
-        const firstBlock = document.getElementsByClassName("first-block");
-        const secondBlock = null;
+        window.addEventListener("DOMContentLoaded", () => {
+        [...radioButtons] = document.getElementsByClassName("radio-input");
+        let secondBlock = null;
         const loaderBlock = document.getElementsByClassName("loader-block");
         const resultBlock = document.getElementsByClassName("result-block");
-        let result = [];
+        let results = [];
         const btn = document.getElementById("button");
-        
+        const resultButton = document.getElementById("resultBtn");
 
         const onButtonClick = (e) => {
+        
         const selectedOption = e.target.value;
-        result.push(selectedOption);  
+        results.push(selectedOption);  
+        const firstBlock = document.getElementsByClassName("first-block")[0];
+        firstBlock.style.display = "none";
+        
 
         if (selectedOption === "1") {
-            secondBlock = document.getElementsByClassName("second-love-block")
-        } if (selectedOption === "2") {
-            secondBlock = document.getElementsByClassName("second-friendship-block")
-        } if (selectedOption === "3") {
-            secondBlock = document.getElementsByClassName("second-family-block")
+            secondBlock = document.getElementsByClassName("second-love-block")[0];
+        } else if (selectedOption === "2") {
+            secondBlock = document.getElementsByClassName("second-friendship-block")[0];
+        } else if (selectedOption === "3") {
+            secondBlock = document.getElementsByClassName("second-family-block")[0];
         } else {
             alert("error occured");
         };
-
+        
         secondBlock.style.display = "block";
-        console.log("hi");
+
     };
 
-    for (const radioButtons) {
-        radioButtons.addEventListener("change", onButtonClick);
-    }
+    const showResult = () => {
+      const resultBlock = document.getElementsByClassName("result-block")[0]; 
+      resultBlock.style.display = "block";
+      const resultText = document.getElementsByClassName("result-text")[0];
+      resultText.innerHTML = results.join(", ")
+    };
 
+    resultButton.addEventListener("click", showResult); 
+
+    for (const radioButton of radioButtons) {
+        radioButton.addEventListener("change", onButtonClick);
+    }
+  });
       </script>
   </body>
 </html>
