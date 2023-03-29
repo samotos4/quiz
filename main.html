@@ -9,7 +9,7 @@
   </head>
   <body> 
       <div class="quiz" id="quiz">
-        <button id="resultBtn" value="1"> click me</button>
+        
           <div class="first-block">
             <div class="questions">Які емоції ви відчуваєте до людини</div>
             <div class="answers">
@@ -37,78 +37,169 @@
               </div>
           </div>
           <div class="second-love-block" id="love" style="display: none;">
-            <label class="answerunit">1
-                <input id="first" 
-                class="checkbox-input" 
+            <label class="answerunit">4
+                <input id="love-4" 
+                class="checkbox-love" 
                 type="checkbox" 
-                value="1"/>
+                value="4"/>
                 <span class="checkmark"></span>
               </label>
+              <label class="answerunit">5
+                <input id="love-5" 
+                class="checkbox-love" 
+                type="checkbox" 
+                value="5"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">6
+                <input id="love-6" 
+                class="checkbox-love" 
+                type="checkbox" 
+                value="6"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">7
+                <input id="love-7" 
+                class="checkbox-love" 
+                type="checkbox" 
+                value="7"/>
+                <span class="checkmark"></span>
+              </label>
+              <button class="resultBtn"> click me</button>
           </div>
           <div class="second-friendship-block" id="friendship" style="display: none;">
-            <label class="answerunit">2
-                <input id="first" 
-                class="checkbox-input" 
+            <label class="answerunit">8
+                <input id="friendship-8" 
+                class="checkbox-friendship" 
                 type="checkbox" 
-                value="1"/>
+                value="8"/>
                 <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">9
+                <input id="friendship-9" 
+                class="checkbox-friendship" 
+                type="checkbox" 
+                value="9"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">10
+                <input id="friendship-10" 
+                class="checkbox-friendship" 
+                type="checkbox" 
+                value="10"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">11
+                <input id="friendship-11" 
+                class="checkbox-friendship" 
+                type="checkbox" 
+                value="11"/>
+                <span class="checkmark"></span>
+                <button class="resultBtn"> click me</button>
               </label>
           </div>
           <div class="second-family-block" id="family" style="display: none;">
-            <label class="answerunit">3
-                <input id="first" 
-                class="checkbox-input" 
+            <label class="answerunit">12
+                <input id="family-12" 
+                class="checkbox-family" 
                 type="checkbox" 
-                value="1"/>
+                value="12"/>
                 <span class="checkmark"></span>
               </label>
+              <label class="answerunit">13
+                <input id="family-13" 
+                class="checkbox-family" 
+                type="checkbox" 
+                value="13"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">14
+                <input id="family-14" 
+                class="checkbox-family" 
+                type="checkbox" 
+                value="14"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="answerunit">15
+                <input id="family-15" 
+                class="checkbox-family" 
+                type="checkbox" 
+                value="15"/>
+                <span class="checkmark"></span>
+              </label>
+              <button class="resultBtn"> click me</button>
           </div>
-          <div class="loader-block"></div>
-          
-          <div class="result-block">
-            <div>blabalbal <b class="result-text"></b></div>
+          <div class="result-block" style="display: none;">
+            <div>Your options <b class="result-text"></b></div>
           </div>
       </div>
       <script>
         window.addEventListener("DOMContentLoaded", () => {
         [...radioButtons] = document.getElementsByClassName("radio-input");
         let secondBlock = null;
-        const loaderBlock = document.getElementsByClassName("loader-block");
-        const resultBlock = document.getElementsByClassName("result-block");
         let results = [];
-        const btn = document.getElementById("button");
-        const resultButton = document.getElementById("resultBtn");
+        
+        const onCheckboxUpdate = (e) => {
+          const isChecked = e.target.checked;
+          const selectedCheckbox = e.target.value;
+
+          if (isChecked) {
+            results.push(selectedCheckbox);
+          } else {
+            results = results.filter((el) => el !== selectedCheckbox);
+          }
+        };
+        
+        const showResult = (e) => {
+          e.preventDefault();
+
+          secondBlock.style.display = "none";
+
+          const resultBlock = document.getElementsByClassName("result-block")[0]; 
+          const resultText = document.getElementsByClassName("result-text")[0];
+
+          resultText.innerHTML = results.join(", ")
+          console.log (results);
+          resultBlock.style.display = "block";
+        };
 
         const onButtonClick = (e) => {
         
         const selectedOption = e.target.value;
+
         results.push(selectedOption);  
+
         const firstBlock = document.getElementsByClassName("first-block")[0];
+
+        let checkboxesClassName = null;
+
         firstBlock.style.display = "none";
         
-
         if (selectedOption === "1") {
             secondBlock = document.getElementsByClassName("second-love-block")[0];
+            checkboxesClassName = ("checkbox-love");
         } else if (selectedOption === "2") {
             secondBlock = document.getElementsByClassName("second-friendship-block")[0];
-        } else if (selectedOption === "3") {
-            secondBlock = document.getElementsByClassName("second-family-block")[0];
+            checkboxesClassName = ("checkbox-friendship");
         } else {
-            alert("error occured");
-        };
+            secondBlock = document.getElementsByClassName("second-family-block")[0];
+            checkboxesClassName = ("checkbox-family");
+        }
         
         secondBlock.style.display = "block";
+        
 
+        [...checkboxes] = document.getElementsByClassName(checkboxesClassName);
+
+        for (const checkbox of checkboxes) {
+          checkbox.addEventListener("change", onCheckboxUpdate);
+        }
+
+        const resultButton = secondBlock.getElementsByClassName("resultBtn")[0];
+        resultButton.addEventListener("click", showResult); 
     };
 
-    const showResult = () => {
-      const resultBlock = document.getElementsByClassName("result-block")[0]; 
-      resultBlock.style.display = "block";
-      const resultText = document.getElementsByClassName("result-text")[0];
-      resultText.innerHTML = results.join(", ")
-    };
 
-    resultButton.addEventListener("click", showResult); 
 
     for (const radioButton of radioButtons) {
         radioButton.addEventListener("change", onButtonClick);
